@@ -46,21 +46,21 @@ class CompoundObject {
   /**
    * Gets primary object.
    *
-   * @return {THREE.Mesh}
+   * @return {Mesh}
    */
   getPrimary() { return this.#primary }
 
   /**
    * Gets secondary object.
    *
-   * @return {THREE.Mesh}
+   * @return {Mesh}
    */
   getSecondary() { return this.#secondary }
 
   /**
    * Gets scene group.
    *
-   * @return {THREE.Group}
+   * @return {Group}
    */
   getGroup() { return this.#group }
 
@@ -100,14 +100,14 @@ class CompoundObject {
         this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta, phi + _MOVE_STEP * delta))
         break
       case Direction.LEFT:
-        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta + _MOVE_STEP * delta, phi))
+        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta - _MOVE_STEP * delta, phi))
         break
       case Direction.RIGHT:
-        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta - _MOVE_STEP * delta, phi))
+        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta + _MOVE_STEP * delta, phi))
         break
     }
   }
 
 }
 
-const _MOVE_STEP = 1.5
+const _MOVE_STEP = 0.3

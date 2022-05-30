@@ -333,12 +333,13 @@ class Main {
     spaceshipBody.position.x = x
     spaceshipBody.position.y = y
     spaceshipBody.position.z = z
+    this.getCompound().setPrimary(spaceshipBody)
 
     geometry = new THREE.CylinderGeometry(1, 1, 2, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
     spaceshipHead = new THREE.Mesh(geometry, material)
     spaceshipHead.position.y = 3.5
-    spaceshipBody.add(spaceshipHead)
+    this.getCompound().setSecondary(spaceshipHead)
 
     geometry = new THREE.CapsuleGeometry( 0.6, 1, 4, 8 );
     material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
@@ -346,7 +347,7 @@ class Main {
     capsule.position.x = 0
     capsule.position.y = -2
     capsule.position.z = 2.8
-    spaceshipBody.add(capsule)
+    this.getCompound().setSecondary(capsule)
 
     geometry = new THREE.CapsuleGeometry( 0.6, 1, 4, 8 );
     material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
@@ -354,7 +355,7 @@ class Main {
     capsule.position.x = -2.8
     capsule.position.y = -2
     capsule.position.z = 0
-    spaceshipBody.add(capsule)
+    this.getCompound().setSecondary(capsule)
 
     geometry = new THREE.CapsuleGeometry( 0.6, 1, 4, 8 );
     material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
@@ -362,7 +363,7 @@ class Main {
     capsule.position.x = 2.8
     capsule.position.y = -2
     capsule.position.z = 0
-    spaceshipBody.add(capsule)
+    this.getCompound().setSecondary(capsule)
 
     geometry = new THREE.CapsuleGeometry( 0.6, 1, 4, 8 );
     material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
@@ -370,27 +371,10 @@ class Main {
     capsule.position.x = 0
     capsule.position.y = -2
     capsule.position.z = -2.8
-    spaceshipBody.add(capsule)
+    this.getCompound().setSecondary(capsule)
 
     scene.add(spaceshipBody)
     this.#sceneObjects.push(spaceshipBody)
-
-    // TODO: might be needed in the future
-    // Setting pivot point
-    // let pivotPoint1 = new THREE.Object3D()
-    // pivotPoint1.position.set(0,0,-45)
-    // pivotPoint1.add(cone)
-    // this.getCompound().setPrimary(pivotPoint1)
-    //
-    // let pivotPoint2 = new THREE.Object3D()
-    // pivotPoint2.position.set(0,0,0)
-    // pivotPoint2.add(cubesGroup)
-    // this.getCompound().setSecondary(pivotPoint2)
-    //
-    // let pivotPoint3 = new THREE.Object3D()
-    // pivotPoint3.position.set(0,-20,0)
-    // pivotPoint3.add(ball)
-    // this.getCompound().setTertiary(pivotPoint3)
 
   }
 
@@ -412,7 +396,7 @@ class Main {
     let delta = this.getClock().getDelta()
 
     /* Prompts key controller to check which keys were pressed and to delegate actions to the various components */
-    this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta)
+    this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta, 70)
 
   }
 

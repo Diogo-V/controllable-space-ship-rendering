@@ -64,7 +64,7 @@ class KeyController {
    * Analyses which keys where pressed and performs the requested actions for those keys.
    *
    * @param context {ContextManagementEngine}
-   * @param objects {Array<THREE.Mesh>}
+   * @param objects {Array<Mesh>}
    * @param compound {CompoundObject}
    * @param delta {number}
    * @param radius {number}
