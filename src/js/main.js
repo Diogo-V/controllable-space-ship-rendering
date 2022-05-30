@@ -214,7 +214,7 @@ class Main {
     scene.add(spaceshipBody)
     this.#sceneObjects.push(spaceshipBody)
 
-    // TODO: might be needed in the future
+    // TODO: might be needed in the future?
     // Setting pivot point
     // let pivotPoint1 = new THREE.Object3D()
     // pivotPoint1.position.set(0,0,-45)
