@@ -70,14 +70,11 @@ class CompoundObject {
    * @param radius {number} world radius
    * @param theta {number} theta angle
    * @param phi {number} phi angle
+   *
+   * @return number[] -> [x, y, z]
    */
-  #applyRotation(radius, theta, phi) {
-    this.getPrimary().position.x = Math.sin(phi) * radius * Math.sin(theta)
-    console.log("X: ", Math.sin(phi) * radius * Math.sin(theta))
-    this.getPrimary().position.z = Math.sin(phi) * radius * Math.cos(theta)
-    console.log("Y: ", Math.sin(phi) * radius * Math.cos(theta))
-    this.getPrimary().position.y = Math.cos(phi) * radius
-    console.log("Z: ", Math.cos(phi) * radius)
+  static #applyRotation(radius, theta, phi) {
+    return [Math.sin(phi) * radius * Math.sin(theta), Math.cos(phi) * radius, Math.sin(phi) * radius * Math.cos(theta)]
   }
 
   /**
@@ -93,23 +90,24 @@ class CompoundObject {
     let {x, y, z} = this.getPrimary().position
     let theta = Math.atan2(x, z)
     let phi = Math.acos(Math.max(-1, Math.min(1, y / radius)))
-    
+
+    /* Calculates new x, z, y values based on the rotation of the spaceship */
     switch (direction) {
       case Direction.UP:
-        this.#applyRotation(radius, theta, phi + _MOVE_STEP * delta)
+        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta, phi - _MOVE_STEP * delta))
         break
       case Direction.DOWN:
-        this.#applyRotation(radius, theta, phi - _MOVE_STEP * delta)
+        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta, phi + _MOVE_STEP * delta))
         break
       case Direction.LEFT:
-        this.#applyRotation(radius, theta + _MOVE_STEP * delta, phi)
+        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta + _MOVE_STEP * delta, phi))
         break
       case Direction.RIGHT:
-        this.#applyRotation(radius, theta - _MOVE_STEP * delta, phi)
+        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta - _MOVE_STEP * delta, phi))
         break
     }
   }
 
 }
 
-const _MOVE_STEP = 3
+const _MOVE_STEP = 1.5
