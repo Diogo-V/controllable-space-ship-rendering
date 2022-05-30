@@ -17,18 +17,10 @@ class KeyController {
       50: false,
       51: false,
       52: false,
-      38: false,
-      40: false,
       37: false,
+      38: false,
       39: false,
-      68: false,
-      67: false,
-      81: false,
-      87: false,
-      65: false,
-      83: false,
-      90: false,
-      88: false
+      40: false,
     }
 
   }
@@ -75,8 +67,9 @@ class KeyController {
    * @param objects {Array<THREE.Mesh>}
    * @param compound {CompoundObject}
    * @param delta {number}
+   * @param radius {number}
    */
-  processKeyPressed = (context, objects, compound, delta) => {
+  processKeyPressed = (context, objects, compound, delta, radius) => {
     'use strict'
 
     /* Changes camera angle */
@@ -105,22 +98,22 @@ class KeyController {
 
     /* Moves articulated object up */
     if (this.getMap()[38]) {  // key -> up
-      compound.move(Direction.UP, delta)
+      compound.move(Direction.UP, delta, radius)
     }
 
     /* Moves articulated object down */
     if (this.getMap()[40]) {  // key -> down
-      compound.move(Direction.DOWN, delta)
+      compound.move(Direction.DOWN, delta, radius)
     }
 
     /* Moves articulated object to the left */
     if (this.getMap()[37]) {  // key -> left
-      compound.move(Direction.LEFT, delta)
+      compound.move(Direction.LEFT, delta, radius)
     }
 
     /* Moves articulated object to the right */
     if (this.getMap()[39]) {  // key -> right
-      compound.move(Direction.RIGHT, delta)
+      compound.move(Direction.RIGHT, delta, radius)
     }
 
   }

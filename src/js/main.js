@@ -235,7 +235,7 @@ class Main {
     let delta = this.getClock().getDelta()
 
     /* Prompts key controller to check which keys were pressed and to delegate actions to the various components */
-    this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta)
+    this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta, 90)
 
   }
 
