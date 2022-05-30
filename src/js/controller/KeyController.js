@@ -123,46 +123,6 @@ class KeyController {
       compound.move(Direction.RIGHT, delta)
     }
 
-    /* Moves articulated object backwards */
-    if (this.getMap()[68]) {  // key -> d
-      compound.move(Direction.BACKWARDS, delta)
-    }
-
-    /* Moves articulated object forward */
-    if (this.getMap()[67]) {  // key -> c
-      compound.move(Direction.FORWARD, delta)
-    }
-
-    /* Rotates articulated object to the left */
-    if (this.getMap()[81]) {  // key -> q
-      compound.rotate(Rank.PRIMARY, Side.LEFT, delta)
-    }
-
-    /* Rotates articulated object to the right */
-    if (this.getMap()[87]) {  // key -> w
-      compound.rotate(Rank.PRIMARY, Side.RIGHT, delta)
-    }
-
-    /* Rotates secondary articulated object to the left */
-    if (this.getMap()[65]) {  // key -> a
-      compound.rotate(Rank.SECONDARY, Side.LEFT, delta)
-    }
-
-    /* Rotates secondary articulated object to the right */
-    if (this.getMap()[83]) {  // key -> s
-      compound.rotate(Rank.SECONDARY, Side.RIGHT, delta)
-    }
-
-    /* Rotates tertiary articulated object to the left */
-    if (this.getMap()[90]) {  // key -> z
-      compound.rotate(Rank.TERTIARY, Side.LEFT, delta)
-    }
-
-    /* Rotates tertiary articulated object to the right */
-    if (this.getMap()[88]) {  // key -> x
-      compound.rotate(Rank.TERTIARY, Side.RIGHT, delta)
-    }
-
   }
 
 }

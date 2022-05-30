@@ -204,32 +204,16 @@ class Main {
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
     spaceshipBody = new THREE.Mesh(geometry, material)
     spaceshipBody.position.x = 120
+    this.getCompound().setPrimary(spaceshipBody)
 
     geometry = new THREE.CylinderGeometry(2, 2, 8, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
     spaceshipHead = new THREE.Mesh(geometry, material)
     spaceshipHead.position.y = 14
-    spaceshipBody.add(spaceshipHead)
+    this.getCompound().setSecondary(spaceshipHead)
 
-    scene.add(spaceshipBody)
-    this.#sceneObjects.push(spaceshipBody)
-
-    // TODO: might be needed in the future?
-    // Setting pivot point
-    // let pivotPoint1 = new THREE.Object3D()
-    // pivotPoint1.position.set(0,0,-45)
-    // pivotPoint1.add(cone)
-    // this.getCompound().setPrimary(pivotPoint1)
-    //
-    // let pivotPoint2 = new THREE.Object3D()
-    // pivotPoint2.position.set(0,0,0)
-    // pivotPoint2.add(cubesGroup)
-    // this.getCompound().setSecondary(pivotPoint2)
-    //
-    // let pivotPoint3 = new THREE.Object3D()
-    // pivotPoint3.position.set(0,-20,0)
-    // pivotPoint3.add(ball)
-    // this.getCompound().setTertiary(pivotPoint3)
+    scene.add(this.getCompound().getPrimary())
+    this.#sceneObjects.push(this.getCompound().getGroup())
 
   }
 
