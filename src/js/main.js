@@ -191,7 +191,10 @@ class Main {
     let y
     let z
     let pos
-    for (var i= 0 ;i<20;i+=1) {
+    let radialSegments
+
+    //Cubes
+    for (var i= 0 ;i<5;i+=1) {
       min = Math.ceil(70/24);
       max = Math.floor(70/20);
       size = Math.floor(Math.random() * (max - min)) + min
@@ -223,11 +226,113 @@ class Main {
       this.#sceneObjects.push(cube)
     }
 
+    //Cylinders
+    for (var i= 0 ;i<5;i+=1) {
+      min = Math.ceil(70/24);
+      max = Math.floor(70/20);
+      height = Math.floor(Math.random() * (max - min)) + min
+      radius = Math.floor(Math.random() * (max - min)) + min
+      radius = radius/2
+
+      radialSegments = 30  // ui: depthSegments
+      geometry = new THREE.CylinderGeometry(radius, radius, height, radialSegments)
+      material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
+      cube = new THREE.Mesh( geometry, material )
+
+      min = Math.ceil(84)
+      max = Math.floor(-84)
+      x = Math.floor(Math.random() * (max - min)) + min
+      y = Math.floor(Math.random() * (max - min)) + min
+      pos = Math.random()
+      if (pos >= 0.5)
+        z = Math.sqrt(84**2 - x**2 - y**2)
+      else
+        z = -Math.sqrt(84**2 - x**2 - y**2)
+
+      cube.position.x = x
+      cube.position.y = y
+      cube.position.z = z
+      scene.add(cube)
+      this.#sceneObjects.push(cube)
+    }
+
+    //Cones
+    for (var i= 0 ;i<5;i+=1) {
+      min = Math.ceil(70/24);
+      max = Math.floor(70/20);
+      height = Math.floor(Math.random() * (max - min)) + min
+      radius = Math.floor(Math.random() * (max - min)) + min
+      radius = radius/2
+
+      radialSegments = 30  // ui: depthSegments
+      geometry = new THREE.ConeGeometry(radius, height, radialSegments)
+      material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
+      cube = new THREE.Mesh( geometry, material )
+
+      min = Math.ceil(84)
+      max = Math.floor(-84)
+      x = Math.floor(Math.random() * (max - min)) + min
+      y = Math.floor(Math.random() * (max - min)) + min
+      pos = Math.random()
+      if (pos >= 0.5)
+        z = Math.sqrt(84**2 - x**2 - y**2)
+      else
+        z = -Math.sqrt(84**2 - x**2 - y**2)
+
+      cube.position.x = x
+      cube.position.y = y
+      cube.position.z = z
+      scene.add(cube)
+      this.#sceneObjects.push(cube)
+    }
+
+    //Pyramids
+    for (var i= 0 ;i<5;i+=1) {
+      min = Math.ceil(70/24);
+      max = Math.floor(70/20);
+      height = Math.floor(Math.random() * (max - min)) + min
+      radius = Math.floor(Math.random() * (max - min)) + min
+      radius = radius/2
+
+      radialSegments = 4  // ui: depthSegments
+      geometry = new THREE.ConeGeometry(radius, height, radialSegments)
+      material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
+      cube = new THREE.Mesh( geometry, material )
+
+      min = Math.ceil(84)
+      max = Math.floor(-84)
+      x = Math.floor(Math.random() * (max - min)) + min
+      y = Math.floor(Math.random() * (max - min)) + min
+      pos = Math.random()
+      if (pos >= 0.5)
+        z = Math.sqrt(84**2 - x**2 - y**2)
+      else
+        z = -Math.sqrt(84**2 - x**2 - y**2)
+
+      cube.position.x = x
+      cube.position.y = y
+      cube.position.z = z
+      scene.add(cube)
+      this.#sceneObjects.push(cube)
+    }
+
     // Spaceship
+    min = Math.ceil(84)
+      max = Math.floor(-84)
+      x = Math.floor(Math.random() * (max - min)) + min
+      y = Math.floor(Math.random() * (max - min)) + min
+      pos = Math.random()
+      if (pos >= 0.5)
+        z = Math.sqrt(84**2 - x**2 - y**2)
+      else
+        z = -Math.sqrt(84**2 - x**2 - y**2)
+
     geometry = new THREE.CylinderGeometry(3, 3, 5, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
     spaceshipBody = new THREE.Mesh(geometry, material)
-    spaceshipBody.position.x = 84
+    spaceshipBody.position.x = x
+    spaceshipBody.position.y = y
+    spaceshipBody.position.z = z
 
     geometry = new THREE.CylinderGeometry(1, 1, 2, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
