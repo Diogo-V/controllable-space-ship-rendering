@@ -14,9 +14,9 @@ class CameraPlugin {
   #front
 
   /**
-   * Three.js camera that has a top view in the current scene.
+   * Three.js camera that follows the spaceship in the current scene.
    */
-  #top
+  #follow
 
   /**
    * Three.js camera that has a side view in the current scene.
@@ -50,22 +50,21 @@ class CameraPlugin {
    * Builds Three.js camera with a top view of the scene.
    */
   #buildTopCamera(scene) {
-    let camera = new THREE.OrthographicCamera(window.innerWidth / -__SHIFT_TOP, window.innerWidth / __SHIFT_TOP,
-      window.innerHeight / __SHIFT_TOP, window.innerHeight / -__SHIFT_TOP)
+    let camera = new THREE.OrthographicCamera(window.innerWidth / -__SHIFT_FOLLOW, window.innerWidth / __SHIFT_FOLLOW,
+      window.innerHeight / __SHIFT_FOLLOW, window.innerHeight / -__SHIFT_FOLLOW)
     camera.position.x = 0
     camera.position.y = 300
     camera.position.z = 0
     camera.lookAt(scene.position)
-    this.#top = camera
+    this.#follow = camera
   }
 
   /**
    * Builds Three.js camera with a side view of the scene.
    */
   #buildSideCamera(scene) {
-    let camera = new THREE.OrthographicCamera(window.innerWidth / -__SHIFT_SIDE, window.innerWidth / __SHIFT_SIDE,
-      window.innerHeight / __SHIFT_SIDE, window.innerHeight / -__SHIFT_SIDE)
-    camera.position.x = 300
+    let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
+    camera.position.x = 3000
     camera.position.y = 0
     camera.position.z = 0
     camera.lookAt(scene.position)
@@ -91,8 +90,8 @@ class CameraPlugin {
       case __FRONTAL:
         this.#currentCamera = this.#front
         break
-      case __TOP:
-        this.#currentCamera = this.#top
+      case __FOLLOW:
+        this.#currentCamera = this.#follow
         break
       case __SIDE:
         this.#currentCamera = this.#side
@@ -109,12 +108,12 @@ class CameraPlugin {
   }
 
   /**
-   * Gets top const value. Is mainly used to change the type of camera being used in the scene.
+   * Gets follow const value. Is mainly used to change the type of camera being used in the scene.
    *
-   * @returns {number} top const value
+   * @returns {number} follow const value
    */
-  static get TOP() {
-    return __TOP
+  static get FOLLOW() {
+    return __FOLLOW
   }
 
   /**
@@ -130,7 +129,6 @@ class CameraPlugin {
 
 
 /* Holds type of camera that can be instantiated (front, top and side view) */
-const __FRONTAL = 0, __TOP = 1, __SIDE = 2
+const __FRONTAL = 0, __FOLLOW = 1, __SIDE = 2
 const __SHIFT_FRONTAL = 7
-const __SHIFT_TOP = 4
-const __SHIFT_SIDE = 7
+const __SHIFT_FOLLOW = 4
