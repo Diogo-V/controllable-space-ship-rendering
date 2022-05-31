@@ -22,9 +22,19 @@ class Main {
   #controller
 
   /**
-   * Holds articulated object.
+   * Holds spaceship.
    */
   #compound
+
+  /**
+   * Holds litter.
+   */
+  #litter
+
+  /**
+   * Holds litter that collided
+   */
+  #collided
 
   /**
    * Holds clock value and determines delta time. This allows for pcs with lower fps to still get a good image.
@@ -46,6 +56,8 @@ class Main {
     /* Builds components required to manage, control and display our scene */
     this.#renderer = Main.#initRenderer()
     this.#sceneObjects = Array()
+    this.#litter = Array()
+    this.#collided = Array()
     this.#compound = new CompoundObject()
     this.#scene = this.#initScene()
     this.#context = new ContextManagementEngine(this.getScene())
@@ -173,8 +185,8 @@ class Main {
     widthSegments = 32
     heightSegments = 32
     geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments)
-    material = new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load('./../../resources/textures/earth_base.jpg')
+    material = new THREE.MeshBasicMaterial({ color: 0x0099ff
+      //map: new THREE.TextureLoader().load('./../../resources/textures/earth_base.jpg')
     })
     ball = new THREE.Mesh(geometry, material)
     ball.position.x = 0
@@ -222,8 +234,10 @@ class Main {
       cube.position.x = x
       cube.position.y = y
       cube.position.z = z
+      cube.raioCol = (Math.sqrt(3)/2)*size
       scene.add(cube)
       this.#sceneObjects.push(cube)
+      this.#litter.push(cube);
     }
 
     //Cylinders
@@ -238,6 +252,7 @@ class Main {
       geometry = new THREE.CylinderGeometry(radius, radius, height, radialSegments)
       material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
       cube = new THREE.Mesh( geometry, material )
+      cube.raioCol = Math.sqrt((radius**2) + ((height/2)**2))
 
       min = Math.ceil(84)
       max = Math.floor(-84)
@@ -254,6 +269,7 @@ class Main {
       cube.position.z = z
       scene.add(cube)
       this.#sceneObjects.push(cube)
+      this.#litter.push(cube);
     }
 
     //Cones
@@ -266,9 +282,10 @@ class Main {
 
       radialSegments = 30  // ui: depthSegments
       geometry = new THREE.ConeGeometry(radius, height, radialSegments)
+
       material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
       cube = new THREE.Mesh( geometry, material )
-
+      cube.raioCol = Math.sqrt((radius**2) + ((height/2)**2))
       min = Math.ceil(84)
       max = Math.floor(-84)
       x = Math.floor(Math.random() * (max - min)) + min
@@ -284,6 +301,7 @@ class Main {
       cube.position.z = z
       scene.add(cube)
       this.#sceneObjects.push(cube)
+      this.#litter.push(cube);
     }
 
     //Pyramids
@@ -298,6 +316,7 @@ class Main {
       geometry = new THREE.ConeGeometry(radius, height, radialSegments)
       material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
       cube = new THREE.Mesh( geometry, material )
+      cube.raioCol = Math.sqrt((radius**2) + ((height/2)**2))
 
       min = Math.ceil(84)
       max = Math.floor(-84)
@@ -312,20 +331,23 @@ class Main {
       cube.position.x = x
       cube.position.y = y
       cube.position.z = z
+
       scene.add(cube)
       this.#sceneObjects.push(cube)
+      this.#litter.push(cube);
     }
 
     // Spaceship
     min = Math.ceil(84)
-      max = Math.floor(-84)
-      x = Math.floor(Math.random() * (max - min)) + min
-      y = Math.floor(Math.random() * (max - min)) + min
-      pos = Math.random()
-      if (pos >= 0.5)
-        z = Math.sqrt(84**2 - x**2 - y**2)
-      else
-        z = -Math.sqrt(84**2 - x**2 - y**2)
+    max = Math.floor(-84)
+    x = Math.floor(Math.random() * (max - min)) + min
+    y = Math.floor(Math.random() * (max - min)) + min
+    pos = Math.random()
+    if (pos >= 0.5)
+      z = Math.sqrt(84**2 - x**2 - y**2)
+    else
+      z = -Math.sqrt(84**2 - x**2 - y**2)
+
 
     geometry = new THREE.CylinderGeometry(3, 3, 5, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
@@ -394,6 +416,31 @@ class Main {
 
     /* Gets the elapsed time from the previous frame. This makes fps smoother in lower end pc's */
     let delta = this.getClock().getDelta()
+
+    /*/!* Remove litter that has collided with the spaceship in the previous frame*!/
+    for (var j = 0; j < this.#collided.length; j++) {
+      this.#litter.remove(this.#collided[j]);
+
+      this.#collided[j].geometry.dispose();
+      this.#collided[j].material.dispose();
+    }
+
+    this.#collided.clear();
+
+    /!* Check for collisions*!/
+    for(var i = 0; i < this.#litter.length; i++){
+      /!* Call function to detect collision*!/
+      var distance = this.#litter[i].boundingSphere.distanceTo(this.#compound.boundingSphere);
+
+      if (distance <= this.#litter[i].boundingSphere.radius + this.#compound.boundingSphere.radius);
+        /!* We have to signalize and in the next update, this litter is going to disappear   *!/
+        this.#collided.push(this.#litter[i])
+
+        /!* We have to put the spaceship in a new position *!/
+
+
+
+    }*/
 
     /* Prompts key controller to check which keys were pressed and to delegate actions to the various components */
     this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta, 70)
