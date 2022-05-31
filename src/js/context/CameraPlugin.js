@@ -64,7 +64,7 @@ class CameraPlugin {
    */
   #buildSideCamera(scene) {
     let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
-    camera.position.x = 3000
+    camera.position.x = 300
     camera.position.y = 0
     camera.position.z = 0
     camera.lookAt(scene.position)
