@@ -169,7 +169,7 @@ class Main {
     let spaceshipHead
 
     // World
-    radius = 70
+    radius = _EARTH_RADIUS
     widthSegments = 32
     heightSegments = 32
     geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments)
@@ -195,8 +195,8 @@ class Main {
 
     //Cubes
     for (var i= 0 ;i<5;i+=1) {
-      min = Math.ceil(70/24);
-      max = Math.floor(70/20);
+      min = Math.ceil(_EARTH_RADIUS/24);
+      max = Math.floor(_EARTH_RADIUS/20);
       size = Math.floor(Math.random() * (max - min)) + min
 
       width = size  // ui: width
@@ -209,15 +209,15 @@ class Main {
       material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
       cube = new THREE.Mesh( geometry, material )
 
-      min = Math.ceil(84)
-      max = Math.floor(-84)
+      min = Math.ceil(_EARTH_RADIUS*1.2)
+      max = Math.floor(-(_EARTH_RADIUS*1.2))
       x = Math.floor(Math.random() * (max - min)) + min
       y = Math.floor(Math.random() * (max - min)) + min
       pos = Math.random()
       if (pos >= 0.5)
-        z = Math.sqrt(84**2 - x**2 - y**2)
+        z = Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
       else
-        z = -Math.sqrt(84**2 - x**2 - y**2)
+        z = -Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
 
       cube.position.x = x
       cube.position.y = y
@@ -228,8 +228,8 @@ class Main {
 
     //Cylinders
     for (var i= 0 ;i<5;i+=1) {
-      min = Math.ceil(70/24);
-      max = Math.floor(70/20);
+      min = Math.ceil(_EARTH_RADIUS/24);
+      max = Math.floor(_EARTH_RADIUS/20);
       height = Math.floor(Math.random() * (max - min)) + min
       radius = Math.floor(Math.random() * (max - min)) + min
       radius = radius/2
@@ -239,15 +239,15 @@ class Main {
       material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
       cube = new THREE.Mesh( geometry, material )
 
-      min = Math.ceil(84)
-      max = Math.floor(-84)
+      min = Math.ceil(_EARTH_RADIUS*1.2)
+      max = Math.floor(-(_EARTH_RADIUS*1.2))
       x = Math.floor(Math.random() * (max - min)) + min
       y = Math.floor(Math.random() * (max - min)) + min
       pos = Math.random()
       if (pos >= 0.5)
-        z = Math.sqrt(84**2 - x**2 - y**2)
+        z = Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
       else
-        z = -Math.sqrt(84**2 - x**2 - y**2)
+        z = -Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
 
       cube.position.x = x
       cube.position.y = y
@@ -258,8 +258,8 @@ class Main {
 
     //Cones
     for (var i= 0 ;i<5;i+=1) {
-      min = Math.ceil(70/24);
-      max = Math.floor(70/20);
+      min = Math.ceil(_EARTH_RADIUS/24);
+      max = Math.floor(_EARTH_RADIUS/20);
       height = Math.floor(Math.random() * (max - min)) + min
       radius = Math.floor(Math.random() * (max - min)) + min
       radius = radius/2
@@ -269,15 +269,15 @@ class Main {
       material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
       cube = new THREE.Mesh( geometry, material )
 
-      min = Math.ceil(84)
-      max = Math.floor(-84)
+      min = Math.ceil(_EARTH_RADIUS*1.2)
+      max = Math.floor(-(_EARTH_RADIUS*1.2))
       x = Math.floor(Math.random() * (max - min)) + min
       y = Math.floor(Math.random() * (max - min)) + min
       pos = Math.random()
       if (pos >= 0.5)
-        z = Math.sqrt(84**2 - x**2 - y**2)
+        z = Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
       else
-        z = -Math.sqrt(84**2 - x**2 - y**2)
+        z = -Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
 
       cube.position.x = x
       cube.position.y = y
@@ -288,8 +288,8 @@ class Main {
 
     //Pyramids
     for (var i= 0 ;i<5;i+=1) {
-      min = Math.ceil(70/24);
-      max = Math.floor(70/20);
+      min = Math.ceil(_EARTH_RADIUS/24);
+      max = Math.floor(_EARTH_RADIUS/20);
       height = Math.floor(Math.random() * (max - min)) + min
       radius = Math.floor(Math.random() * (max - min)) + min
       radius = radius/2
@@ -299,15 +299,15 @@ class Main {
       material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
       cube = new THREE.Mesh( geometry, material )
 
-      min = Math.ceil(84)
-      max = Math.floor(-84)
+      min = Math.ceil(_EARTH_RADIUS*1.2)
+      max = Math.floor(-(_EARTH_RADIUS*1.2))
       x = Math.floor(Math.random() * (max - min)) + min
       y = Math.floor(Math.random() * (max - min)) + min
       pos = Math.random()
       if (pos >= 0.5)
-        z = Math.sqrt(84**2 - x**2 - y**2)
+        z = Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
       else
-        z = -Math.sqrt(84**2 - x**2 - y**2)
+        z = -Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
 
       cube.position.x = x
       cube.position.y = y
@@ -317,15 +317,15 @@ class Main {
     }
 
     // Spaceship
-    min = Math.ceil(84)
-      max = Math.floor(-84)
+    min = Math.ceil(_EARTH_RADIUS*1.2)
+      max = Math.floor(-(_EARTH_RADIUS*1.2))
       x = Math.floor(Math.random() * (max - min)) + min
       y = Math.floor(Math.random() * (max - min)) + min
       pos = Math.random()
       if (pos >= 0.5)
-        z = Math.sqrt(84**2 - x**2 - y**2)
+        z = Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
       else
-        z = -Math.sqrt(84**2 - x**2 - y**2)
+        z = -Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
 
     geometry = new THREE.CylinderGeometry(3, 3, 5, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
@@ -396,7 +396,7 @@ class Main {
     let delta = this.getClock().getDelta()
 
     /* Prompts key controller to check which keys were pressed and to delegate actions to the various components */
-    this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta, 70)
+    this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta, _EARTH_RADIUS*1.2)
 
   }
 
@@ -416,3 +416,5 @@ class Main {
   }
 
 }
+
+const _EARTH_RADIUS = 70
