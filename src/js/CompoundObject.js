@@ -110,4 +110,4 @@ class CompoundObject {
 
 }
 
-const _MOVE_STEP = 0.3
+const _MOVE_STEP = 0.5

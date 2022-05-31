@@ -18,7 +18,6 @@ class ContextManagementEngine {
    */
   constructor(scene) {
     this.#camera = new CameraPlugin(scene)
-    this.#wireframe = new WireframePlugin()
   }
 
   /**
@@ -37,15 +36,6 @@ class ContextManagementEngine {
    */
   setCamera(newCameraType) {
     this.#camera.setCamera(newCameraType)
-  }
-
-  /**
-   * Updates wireframe preview state.
-   *
-   * @param objects 3.js scene objects
-   */
-  toggleWireframe(objects) {
-    this.#wireframe.toggleState(objects)
   }
 
 }

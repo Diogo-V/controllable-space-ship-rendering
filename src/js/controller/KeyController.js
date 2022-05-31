@@ -16,7 +16,6 @@ class KeyController {
       49: false,
       50: false,
       51: false,
-      52: false,
       37: false,
       38: false,
       39: false,
@@ -88,12 +87,6 @@ class KeyController {
     if (this.getMap()[51]) {  // key -> 3
       context.setCamera(CameraPlugin.SIDE)
       this.getMap()[51] = false
-    }
-
-    /* Updates the wireframe preview state */
-    if (this.getMap()[52]) {  // key -> 4
-      context.toggleWireframe(objects)
-      this.getMap()[52] = false
     }
 
     /* Moves articulated object up */
