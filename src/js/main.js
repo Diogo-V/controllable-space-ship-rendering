@@ -184,52 +184,197 @@ class Main {
     this.#sceneObjects.push(ball)
 
     // Orbital trash
-    width = 4  // ui: width
-    height = 4  // ui: height
-    depth = 4  // ui: depth
-    widthSegments = 5  // ui: widthSegments
-    heightSegments = 5  // ui: heightSegments
-    depthSegments = 5  // ui: depthSegments
-    geometry = new THREE.BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments)
-    material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
-    cube = new THREE.Mesh( geometry, material )
-    cube.position.x = 0
-    cube.position.y = -90
-    cube.position.z = 0
-    scene.add(cube)
-    this.#sceneObjects.push(cube)
+    let min
+    let max
+    let size
+    let x
+    let y
+    let z
+    let pos
+    let radialSegments
+
+    //Cubes
+    for (var i= 0 ;i<5;i+=1) {
+      min = Math.ceil(70/24);
+      max = Math.floor(70/20);
+      size = Math.floor(Math.random() * (max - min)) + min
+
+      width = size  // ui: width
+      height = size  // ui: height
+      depth = size  // ui: depth
+      widthSegments = 5  // ui: widthSegments
+      heightSegments = 5  // ui: heightSegments
+      depthSegments = 5  // ui: depthSegments
+      geometry = new THREE.BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments)
+      material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
+      cube = new THREE.Mesh( geometry, material )
+
+      min = Math.ceil(84)
+      max = Math.floor(-84)
+      x = Math.floor(Math.random() * (max - min)) + min
+      y = Math.floor(Math.random() * (max - min)) + min
+      pos = Math.random()
+      if (pos >= 0.5)
+        z = Math.sqrt(84**2 - x**2 - y**2)
+      else
+        z = -Math.sqrt(84**2 - x**2 - y**2)
+
+      cube.position.x = x
+      cube.position.y = y
+      cube.position.z = z
+      scene.add(cube)
+      this.#sceneObjects.push(cube)
+    }
+
+    //Cylinders
+    for (var i= 0 ;i<5;i+=1) {
+      min = Math.ceil(70/24);
+      max = Math.floor(70/20);
+      height = Math.floor(Math.random() * (max - min)) + min
+      radius = Math.floor(Math.random() * (max - min)) + min
+      radius = radius/2
+
+      radialSegments = 30  // ui: depthSegments
+      geometry = new THREE.CylinderGeometry(radius, radius, height, radialSegments)
+      material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
+      cube = new THREE.Mesh( geometry, material )
+
+      min = Math.ceil(84)
+      max = Math.floor(-84)
+      x = Math.floor(Math.random() * (max - min)) + min
+      y = Math.floor(Math.random() * (max - min)) + min
+      pos = Math.random()
+      if (pos >= 0.5)
+        z = Math.sqrt(84**2 - x**2 - y**2)
+      else
+        z = -Math.sqrt(84**2 - x**2 - y**2)
+
+      cube.position.x = x
+      cube.position.y = y
+      cube.position.z = z
+      scene.add(cube)
+      this.#sceneObjects.push(cube)
+    }
+
+    //Cones
+    for (var i= 0 ;i<5;i+=1) {
+      min = Math.ceil(70/24);
+      max = Math.floor(70/20);
+      height = Math.floor(Math.random() * (max - min)) + min
+      radius = Math.floor(Math.random() * (max - min)) + min
+      radius = radius/2
+
+      radialSegments = 30  // ui: depthSegments
+      geometry = new THREE.ConeGeometry(radius, height, radialSegments)
+      material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
+      cube = new THREE.Mesh( geometry, material )
+
+      min = Math.ceil(84)
+      max = Math.floor(-84)
+      x = Math.floor(Math.random() * (max - min)) + min
+      y = Math.floor(Math.random() * (max - min)) + min
+      pos = Math.random()
+      if (pos >= 0.5)
+        z = Math.sqrt(84**2 - x**2 - y**2)
+      else
+        z = -Math.sqrt(84**2 - x**2 - y**2)
+
+      cube.position.x = x
+      cube.position.y = y
+      cube.position.z = z
+      scene.add(cube)
+      this.#sceneObjects.push(cube)
+    }
+
+    //Pyramids
+    for (var i= 0 ;i<5;i+=1) {
+      min = Math.ceil(70/24);
+      max = Math.floor(70/20);
+      height = Math.floor(Math.random() * (max - min)) + min
+      radius = Math.floor(Math.random() * (max - min)) + min
+      radius = radius/2
+
+      radialSegments = 4  // ui: depthSegments
+      geometry = new THREE.ConeGeometry(radius, height, radialSegments)
+      material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
+      cube = new THREE.Mesh( geometry, material )
+
+      min = Math.ceil(84)
+      max = Math.floor(-84)
+      x = Math.floor(Math.random() * (max - min)) + min
+      y = Math.floor(Math.random() * (max - min)) + min
+      pos = Math.random()
+      if (pos >= 0.5)
+        z = Math.sqrt(84**2 - x**2 - y**2)
+      else
+        z = -Math.sqrt(84**2 - x**2 - y**2)
+
+      cube.position.x = x
+      cube.position.y = y
+      cube.position.z = z
+      scene.add(cube)
+      this.#sceneObjects.push(cube)
+    }
 
     // Spaceship
-    geometry = new THREE.CylinderGeometry(5, 5, 20, 32)
+    min = Math.ceil(84)
+      max = Math.floor(-84)
+      x = Math.floor(Math.random() * (max - min)) + min
+      y = Math.floor(Math.random() * (max - min)) + min
+      pos = Math.random()
+      if (pos >= 0.5)
+        z = Math.sqrt(84**2 - x**2 - y**2)
+      else
+        z = -Math.sqrt(84**2 - x**2 - y**2)
+
+    geometry = new THREE.CylinderGeometry(3, 3, 5, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
     spaceshipBody = new THREE.Mesh(geometry, material)
-    spaceshipBody.position.x = 120
+    spaceshipBody.position.x = x
+    spaceshipBody.position.y = y
+    spaceshipBody.position.z = z
+    this.getCompound().setPrimary(spaceshipBody)
 
-    geometry = new THREE.CylinderGeometry(2, 2, 8, 32)
+    geometry = new THREE.CylinderGeometry(1, 1, 2, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
     spaceshipHead = new THREE.Mesh(geometry, material)
-    spaceshipHead.position.y = 14
-    spaceshipBody.add(spaceshipHead)
+    spaceshipHead.position.y = 3.5
+    this.getCompound().setSecondary(spaceshipHead)
+
+    geometry = new THREE.CapsuleGeometry( 0.6, 1, 4, 8 );
+    material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    let capsule = new THREE.Mesh( geometry, material );
+    capsule.position.x = 0
+    capsule.position.y = -2
+    capsule.position.z = 2.8
+    this.getCompound().setSecondary(capsule)
+
+    geometry = new THREE.CapsuleGeometry( 0.6, 1, 4, 8 );
+    material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    capsule = new THREE.Mesh( geometry, material );
+    capsule.position.x = -2.8
+    capsule.position.y = -2
+    capsule.position.z = 0
+    this.getCompound().setSecondary(capsule)
+
+    geometry = new THREE.CapsuleGeometry( 0.6, 1, 4, 8 );
+    material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    capsule = new THREE.Mesh( geometry, material );
+    capsule.position.x = 2.8
+    capsule.position.y = -2
+    capsule.position.z = 0
+    this.getCompound().setSecondary(capsule)
+
+    geometry = new THREE.CapsuleGeometry( 0.6, 1, 4, 8 );
+    material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    capsule = new THREE.Mesh( geometry, material );
+    capsule.position.x = 0
+    capsule.position.y = -2
+    capsule.position.z = -2.8
+    this.getCompound().setSecondary(capsule)
 
     scene.add(spaceshipBody)
     this.#sceneObjects.push(spaceshipBody)
-
-    // TODO: might be needed in the future?
-    // Setting pivot point
-    // let pivotPoint1 = new THREE.Object3D()
-    // pivotPoint1.position.set(0,0,-45)
-    // pivotPoint1.add(cone)
-    // this.getCompound().setPrimary(pivotPoint1)
-    //
-    // let pivotPoint2 = new THREE.Object3D()
-    // pivotPoint2.position.set(0,0,0)
-    // pivotPoint2.add(cubesGroup)
-    // this.getCompound().setSecondary(pivotPoint2)
-    //
-    // let pivotPoint3 = new THREE.Object3D()
-    // pivotPoint3.position.set(0,-20,0)
-    // pivotPoint3.add(ball)
-    // this.getCompound().setTertiary(pivotPoint3)
 
   }
 
@@ -251,7 +396,7 @@ class Main {
     let delta = this.getClock().getDelta()
 
     /* Prompts key controller to check which keys were pressed and to delegate actions to the various components */
-    this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta)
+    this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta, 70)
 
   }
 
