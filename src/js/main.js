@@ -173,9 +173,7 @@ class Main {
     widthSegments = 32
     heightSegments = 32
     geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments)
-    material = new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load('./../../resources/textures/earth_base.jpg')
-    })
+    material = new THREE.MeshBasicMaterial({color: 0xfffff})
     ball = new THREE.Mesh(geometry, material)
     ball.position.x = 0
     ball.position.y = 0

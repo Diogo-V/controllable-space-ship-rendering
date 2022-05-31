@@ -9,11 +9,6 @@ class ContextManagementEngine {
   #camera
 
   /**
-   * Holds wireframe plugin. Toggles the preview of wireframes in all the created objects.
-   */
-  #wireframe
-
-  /**
    * ContextManagementEngine class constructor.
    */
   constructor(scene) {

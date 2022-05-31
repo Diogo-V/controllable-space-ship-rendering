@@ -71,6 +71,10 @@ class KeyController {
   processKeyPressed = (context, objects, compound, delta, radius) => {
     'use strict'
 
+    // Holds array with currently being pressed direction. This will be latter on passed to the compound object's
+    // movement and calculate the total movement vector
+    let movement = []
+
     /* Changes camera angle */
     if (this.getMap()[49]) {  // key -> 1
       context.setCamera(CameraPlugin.FRONTAL)
@@ -91,23 +95,26 @@ class KeyController {
 
     /* Moves articulated object up */
     if (this.getMap()[38]) {  // key -> up
-      compound.move(Direction.UP, delta, radius)
+      movement.push(Direction.UP)
     }
 
     /* Moves articulated object down */
     if (this.getMap()[40]) {  // key -> down
-      compound.move(Direction.DOWN, delta, radius)
+      movement.push(Direction.DOWN)
     }
 
     /* Moves articulated object to the left */
     if (this.getMap()[37]) {  // key -> left
-      compound.move(Direction.LEFT, delta, radius)
+      movement.push(Direction.LEFT)
     }
 
     /* Moves articulated object to the right */
     if (this.getMap()[39]) {  // key -> right
-      compound.move(Direction.RIGHT, delta, radius)
+      movement.push(Direction.RIGHT)
     }
+
+    /* If any key was pressed, we call the update function of the spaceship */
+    compound.move(movement, delta, radius)
 
   }
 
