@@ -28,7 +28,7 @@ class CameraPlugin {
    */
   constructor(scene) {
     this.#buildFrontCamera(scene)
-    this.#buildTopCamera(scene)
+    this.#buildFollowCamera(scene)
     this.#buildSideCamera(scene)
     this.#currentCamera = this.#front
   }
@@ -47,11 +47,10 @@ class CameraPlugin {
   }
 
   /**
-   * Builds Three.js camera with a top view of the scene.
+   * Builds Three.js camera with a follow view of the spaceship.
    */
-  #buildTopCamera(scene) {
-    let camera = new THREE.OrthographicCamera(window.innerWidth / -__SHIFT_FOLLOW, window.innerWidth / __SHIFT_FOLLOW,
-      window.innerHeight / __SHIFT_FOLLOW, window.innerHeight / -__SHIFT_FOLLOW)
+  #buildFollowCamera(scene) {
+    let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
     camera.position.x = 0
     camera.position.y = 300
     camera.position.z = 0
