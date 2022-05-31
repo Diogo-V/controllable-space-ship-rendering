@@ -73,7 +73,7 @@ class CompoundObject {
    *
    * @return number[] -> [x, y, z]
    */
-  #applyRotation(radius, theta, phi) {
+  #applySphericalRotation(radius, theta, phi) {
     return [
       Math.sin(phi) * radius * Math.sin(theta) - this.getPrimary().position.x,
       Math.cos(phi) * radius - this.getPrimary().position.y,
@@ -100,16 +100,16 @@ class CompoundObject {
     directions.forEach((direction) => {
       switch (direction) {
         case Direction.UP:
-          totalMovementVector.add(new THREE.Vector3(...this.#applyRotation(radius, theta, phi - _MOVE_STEP * delta)))
+          totalMovementVector.add(new THREE.Vector3(...this.#applySphericalRotation(radius, theta, phi - _MOVE_STEP * delta)))
           break
         case Direction.DOWN:
-          totalMovementVector.add(new THREE.Vector3(...this.#applyRotation(radius, theta, phi + _MOVE_STEP * delta)))
+          totalMovementVector.add(new THREE.Vector3(...this.#applySphericalRotation(radius, theta, phi + _MOVE_STEP * delta)))
           break
         case Direction.LEFT:
-          totalMovementVector.add(new THREE.Vector3(...this.#applyRotation(radius, theta - _MOVE_STEP * delta, phi)))
+          totalMovementVector.add(new THREE.Vector3(...this.#applySphericalRotation(radius, theta - _MOVE_STEP * delta, phi)))
           break
         case Direction.RIGHT:
-          totalMovementVector.add(new THREE.Vector3(...this.#applyRotation(radius, theta + _MOVE_STEP * delta, phi)))
+          totalMovementVector.add(new THREE.Vector3(...this.#applySphericalRotation(radius, theta + _MOVE_STEP * delta, phi)))
           break
       }
     })
