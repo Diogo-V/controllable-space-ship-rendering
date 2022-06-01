@@ -264,6 +264,30 @@ class Main {
       this.#sceneObjects.push(cube)
       this.#addHemisphere(cube)
 
+      /* Check for collisions in the first hemisphere */
+      for (let j = 0; j < this.#sceneObjects.length; j++) {
+
+        /* Call function to detect collision*/
+        let x1 = this.#sceneObjects[i].position.x;
+        let y1 = this.#sceneObjects[i].position.y;
+        let z1 = this.#sceneObjects[i].position.z;
+
+        let x2 = Math.abs(x1 - x);
+        let y2 = Math.abs(y1 - y);
+        let z2 = Math.abs(z1 - z);
+
+        let distance = Math.sqrt((x2 * x2) + (y2 * y2) + (z2 * z2));
+
+        /* We have to remove this litter from the scene*/
+        if (distance <= this.#sceneObjects[i].raioCol + cube.raioCol && distance!=0) {
+          scene.remove(this.#sceneObjects[i])
+
+          this.#sceneObjects.slice(i, 1)
+          i -= 1
+        }
+
+      }
+
     }
 
     //Cylinders
@@ -296,6 +320,30 @@ class Main {
       scene.add(cube)
       this.#sceneObjects.push(cube)
       this.#addHemisphere(cube)
+
+      /* Check for collisions in the first hemisphere */
+      for (let j = 0; j < this.#sceneObjects.length; j++) {
+
+        /* Call function to detect collision*/
+        let x1 = this.#sceneObjects[i].position.x;
+        let y1 = this.#sceneObjects[i].position.y;
+        let z1 = this.#sceneObjects[i].position.z;
+
+        let x2 = Math.abs(x1 - x);
+        let y2 = Math.abs(y1 - y);
+        let z2 = Math.abs(z1 - z);
+
+        let distance = Math.sqrt((x2 * x2) + (y2 * y2) + (z2 * z2));
+
+        /* We have to remove this litter from the scene*/
+        if (distance <= this.#sceneObjects[i].raioCol + cube.raioCol && distance!=0) {
+          scene.remove(this.#sceneObjects[i])
+
+          this.#sceneObjects.slice(i, 1)
+          i -= 1
+        }
+
+      }
     }
 
     //Cones
@@ -330,6 +378,30 @@ class Main {
       scene.add(cube)
       this.#sceneObjects.push(cube)
       this.#addHemisphere(cube)
+
+      /* Check for collisions in the first hemisphere */
+      for (let j = 0; j < this.#sceneObjects.length; j++) {
+
+        /* Call function to detect collision*/
+        let x1 = this.#sceneObjects[i].position.x;
+        let y1 = this.#sceneObjects[i].position.y;
+        let z1 = this.#sceneObjects[i].position.z;
+
+        let x2 = Math.abs(x1 - x);
+        let y2 = Math.abs(y1 - y);
+        let z2 = Math.abs(z1 - z);
+
+        let distance = Math.sqrt((x2 * x2) + (y2 * y2) + (z2 * z2));
+
+        /* We have to remove this litter from the scene*/
+        if (distance <= this.#sceneObjects[i].raioCol + cube.raioCol && distance!=0) {
+          scene.remove(this.#sceneObjects[i])
+
+          this.#sceneObjects.slice(i, 1)
+          i -= 1
+        }
+
+      }
     }
 
     //Pyramids
@@ -363,6 +435,30 @@ class Main {
       scene.add(cube)
       this.#sceneObjects.push(cube)
       this.#addHemisphere(cube)
+
+      /* Check for collisions in the first hemisphere */
+      for (let j = 0; j < this.#sceneObjects.length; j++) {
+
+        /* Call function to detect collision*/
+        let x1 = this.#sceneObjects[i].position.x;
+        let y1 = this.#sceneObjects[i].position.y;
+        let z1 = this.#sceneObjects[i].position.z;
+
+        let x2 = Math.abs(x1 - x);
+        let y2 = Math.abs(y1 - y);
+        let z2 = Math.abs(z1 - z);
+
+        let distance = Math.sqrt((x2 * x2) + (y2 * y2) + (z2 * z2));
+
+        /* We have to remove this litter from the scene*/
+        if (distance <= this.#sceneObjects[i].raioCol + cube.raioCol && distance!=0) {
+          scene.remove(this.#sceneObjects[i])
+
+          this.#sceneObjects.slice(i, 1)
+          i -= 1
+        }
+
+      }
     }
 
     // Spaceship
