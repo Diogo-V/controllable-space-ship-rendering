@@ -47,8 +47,9 @@ class Main {
     this.#renderer = Main.#initRenderer()
     this.#sceneObjects = Array()
     this.#compound = new CompoundObject()
-    this.#scene = this.#initScene()
-    this.#context = new ContextManagementEngine(this.getScene())
+    let [scene, followCamera]  = this.#initScene()
+    this.#scene = scene
+    this.#context = new ContextManagementEngine(this.getScene(), followCamera)
     this.#controller = new KeyController()
     this.#clock = new THREE.Clock(true)
 
@@ -77,10 +78,12 @@ class Main {
     /* Creates scene  */
     let scene = new THREE.Scene()
 
-    /* Adds rest of objects to the scene */
-    this.#buildScene(scene)
+    let followCamera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 1000)
 
-    return scene
+    /* Adds rest of objects to the scene */
+    this.#buildScene(scene, followCamera)
+
+    return [scene, followCamera]
   }
 
   /**
@@ -151,7 +154,7 @@ class Main {
   /**
    * Adds objects to the scene.
    */
-  #buildScene = (scene) => {
+  #buildScene = (scene, followCamera) => {
     'use strict'
 
     let radius
@@ -328,10 +331,19 @@ class Main {
     geometry = new THREE.CylinderGeometry(3, 3, 5, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
     spaceshipBody = new THREE.Mesh(geometry, material)
+    spaceshipBody.position.x = 0
+    spaceshipBody.position.y = 0
+    spaceshipBody.position.z = 0
+    this.getCompound().setPrimary(spaceshipBody)
+    this.getCompound().setSecondary(followCamera)
+    followCamera.position.x = 0
+    followCamera.position.y = -30
+    followCamera.position.z = -30
+    followCamera.lookAt(this.getCompound().getGroup().position)
+
     spaceshipBody.position.x = x
     spaceshipBody.position.y = y
     spaceshipBody.position.z = z
-    this.getCompound().setPrimary(spaceshipBody)
 
     geometry = new THREE.CylinderGeometry(1, 1, 2, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
@@ -395,6 +407,8 @@ class Main {
 
     /* Prompts key controller to check which keys were pressed and to delegate actions to the various components */
     this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta, _EARTH_RADIUS*1.2)
+
+    this.getCompound().getPrimary().lookAt(0, 0, 0)
 
   }
 

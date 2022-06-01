@@ -6,11 +6,6 @@ class CompoundObject {
   #primary
 
   /**
-   * Holds secondary object of this composition.
-   */
-  #secondary
-
-  /**
    * Three.js group object that is going to be added to the scene.
    */
   #group
@@ -40,7 +35,6 @@ class CompoundObject {
   setSecondary(secondary) {
     this.getGroup().add(secondary)
     this.getPrimary().add(secondary)
-    this.#secondary = secondary
   }
 
   /**
@@ -49,13 +43,6 @@ class CompoundObject {
    * @return {Mesh}
    */
   getPrimary() { return this.#primary }
-
-  /**
-   * Gets secondary object.
-   *
-   * @return {Mesh}
-   */
-  getSecondary() { return this.#secondary }
 
   /**
    * Gets scene group.

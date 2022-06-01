@@ -26,9 +26,9 @@ class CameraPlugin {
   /**
    * CameraPlugin class constructor. We set the frontal camera as the default one.
    */
-  constructor(scene) {
+  constructor(scene, followCamera) {
     this.#buildFrontCamera(scene)
-    this.#buildFollowCamera(scene)
+    this.#buildFollowCamera(followCamera)
     this.#buildSideCamera(scene)
     this.#currentCamera = this.#front
   }
@@ -49,12 +49,7 @@ class CameraPlugin {
   /**
    * Builds Three.js camera with a follow view of the spaceship.
    */
-  #buildFollowCamera(scene) {
-    let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
-    camera.position.x = 0
-    camera.position.y = 300
-    camera.position.z = 0
-    camera.lookAt(scene.position)
+  #buildFollowCamera(camera) {
     this.#follow = camera
   }
 

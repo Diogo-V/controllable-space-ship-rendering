@@ -11,8 +11,8 @@ class ContextManagementEngine {
   /**
    * ContextManagementEngine class constructor.
    */
-  constructor(scene) {
-    this.#camera = new CameraPlugin(scene)
+  constructor(scene, followCamera) {
+    this.#camera = new CameraPlugin(scene, followCamera)
   }
 
   /**
