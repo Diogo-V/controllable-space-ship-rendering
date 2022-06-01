@@ -27,9 +27,24 @@ class Main {
   #compound
 
   /**
-   * Holds litter.
+   * Holds litter in hemisphere 1.
    */
-  #litter
+  #litter_h1
+
+  /**
+   * Holds litter in hemisphere 2.
+   */
+  #litter_h2
+
+  /**
+   * Holds litter in hemisphere 3.
+   */
+  #litter_h3
+
+  /**
+   * Holds litter in hemisphere 4.
+   */
+  #litter_h4
 
   /**
    * Holds clock value and determines delta time. This allows for pcs with lower fps to still get a good image.
@@ -51,7 +66,10 @@ class Main {
     /* Builds components required to manage, control and display our scene */
     this.#renderer = Main.#initRenderer()
     this.#sceneObjects = Array()
-    this.#litter = Array()
+    this.#litter_h1 = Array()
+    this.#litter_h2 = Array()
+    this.#litter_h3 = Array()
+    this.#litter_h4 = Array()
     this.#compound = new CompoundObject()
     let [scene, followCamera]  = this.#initScene()
     this.#scene = scene
@@ -157,6 +175,18 @@ class Main {
    */
   getController() { return this.#controller }
 
+  /** Check wich hemisphere the litter is*/
+  #addHemisphere = (m) => {
+    if (m.position.x >= 0 && m.position.z >= 0)
+      this.#litter_h1.push(m);
+    else if (m.position.x < 0 && m.position.z >= 0)
+      this.#litter_h2.push(m);
+    else if (m.position.x >= 0 && m.position.z < 0)
+      this.#litter_h3.push(m);
+    else if (m.position.x < 0 && m.position.z < 0)
+      this.#litter_h4.push(m);
+  }
+
   /**
    * Adds objects to the scene.
    */
@@ -232,7 +262,8 @@ class Main {
       cube.raioCol = (Math.sqrt(3)/2)*size
       scene.add(cube)
       this.#sceneObjects.push(cube)
-      this.#litter.push(cube);
+      this.#addHemisphere(cube)
+
     }
 
     //Cylinders
@@ -264,7 +295,7 @@ class Main {
       cube.position.z = z
       scene.add(cube)
       this.#sceneObjects.push(cube)
-      this.#litter.push(cube);
+      this.#addHemisphere(cube)
     }
 
     //Cones
@@ -298,7 +329,7 @@ class Main {
       cube.position.z = z
       scene.add(cube)
       this.#sceneObjects.push(cube)
-      this.#litter.push(cube);
+      this.#addHemisphere(cube)
     }
 
     //Pyramids
@@ -331,7 +362,7 @@ class Main {
 
       scene.add(cube)
       this.#sceneObjects.push(cube)
-      this.#litter.push(cube);
+      this.#addHemisphere(cube)
     }
 
     // Spaceship
@@ -412,35 +443,44 @@ class Main {
   /**
    * Check for collisions. If there is a collision, remove the litter from the scene
    */
-  #checkCollision = () => {
-    /* Check for collisions*/
-    for (var i = 0; i < this.#litter.length; i++) {
+  #checkCollision = (list) => {
+    var x2 = this.getCompound().getPrimary().position.x;
+    var y2 = this.getCompound().getPrimary().position.y;
+    var z2 = this.getCompound().getPrimary().position.z;
+
+    /* Check for collisions in the first hemisphere */
+    for (let i = 0; i < list.length; i++) {
 
       /* Call function to detect collision*/
-      var x1 = this.#litter[i].position.x;
-      var y1 = this.#litter[i].position.y;
-      var z1 = this.#litter[i].position.z;
+      let x1 = list[i].position.x;
+      let y1 = list[i].position.y;
+      let z1 = list[i].position.z;
 
-      var x2 = this.getCompound().getPrimary().position.x;
-      var y2 = this.getCompound().getPrimary().position.y;
-      var z2 = this.getCompound().getPrimary().position.z;
+      let x = Math.abs(x1 - x2);
+      let y = Math.abs(y1 - y2);
+      let z = Math.abs(z1 - z2);
 
-      var x = Math.abs(x1 - x2);
-      var y = Math.abs(y1 - y2);
-      var z = Math.abs(z1 - z2);
-
-      var distance = 0;
-      if (x !== 0 || y !== 0 || z !== 0) {
-        distance = Math.sqrt((x * x) + (y * y) + (z * z));
-      }
+      let distance = Math.sqrt((x * x) + (y * y) + (z * z));
 
       /* We have to remove this litter from the scene*/
-      if (distance <= this.#litter[i].raioCol + this.#compound.raioCol) {
-        this.#scene.remove(this.#litter[i])
+      if (distance <= list[i].raioCol + this.#compound.raioCol) {
+        this.#scene.remove(list[i])
 
-        this.#litter.slice(i, 1)
+        list.slice(i, 1)
       }
+
     }
+  }
+
+  #checkCollisionHemisphere = (x, z) =>{
+    if (x >= 0 && z >= 0)
+      this.#checkCollision(this.#litter_h1)
+    else if (x < 0 && z >= 0)
+      this.#checkCollision(this.#litter_h2)
+    else if (x >= 0 && z < 0)
+      this.#checkCollision(this.#litter_h3)
+    else if (x < 0 && z < 0)
+      this.#checkCollision(this.#litter_h4)
   }
 
   /**
@@ -460,8 +500,7 @@ class Main {
     /* Gets the elapsed time from the previous frame. This makes fps smoother in lower end pc's */
     let delta = this.getClock().getDelta()
 
-    this.#checkCollision()
-
+    this.#checkCollisionHemisphere(this.getCompound().getPrimary().position.x, this.getCompound().getPrimary().position.z)
 
     /* Prompts key controller to check which keys were pressed and to delegate actions to the various components */
     this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta, _EARTH_RADIUS*1.2)
