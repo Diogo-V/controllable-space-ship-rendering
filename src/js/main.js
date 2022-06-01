@@ -32,11 +32,6 @@ class Main {
   #litter
 
   /**
-   * Holds litter that collided
-   */
-  #collided
-
-  /**
    * Holds clock value and determines delta time. This allows for pcs with lower fps to still get a good image.
    */
   #clock
@@ -57,7 +52,6 @@ class Main {
     this.#renderer = Main.#initRenderer()
     this.#sceneObjects = Array()
     this.#litter = Array()
-    this.#collided = Array()
     this.#compound = new CompoundObject()
     this.#scene = this.#initScene()
     this.#context = new ContextManagementEngine(this.getScene())
@@ -181,7 +175,7 @@ class Main {
     let spaceshipHead
 
     // World
-    radius = 70
+    radius = _EARTH_RADIUS
     widthSegments = 32
     heightSegments = 32
     geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments)
@@ -207,8 +201,8 @@ class Main {
 
     //Cubes
     for (var i= 0 ;i<5;i+=1) {
-      min = Math.ceil(70/24);
-      max = Math.floor(70/20);
+      min = Math.ceil(_EARTH_RADIUS/24);
+      max = Math.floor(_EARTH_RADIUS/20);
       size = Math.floor(Math.random() * (max - min)) + min
 
       width = size  // ui: width
@@ -221,15 +215,15 @@ class Main {
       material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
       cube = new THREE.Mesh( geometry, material )
 
-      min = Math.ceil(84)
-      max = Math.floor(-84)
+      min = Math.ceil(_EARTH_RADIUS*1.2)
+      max = Math.floor(-(_EARTH_RADIUS*1.2))
       x = Math.floor(Math.random() * (max - min)) + min
       y = Math.floor(Math.random() * (max - min)) + min
       pos = Math.random()
       if (pos >= 0.5)
-        z = Math.sqrt(84**2 - x**2 - y**2)
+        z = Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
       else
-        z = -Math.sqrt(84**2 - x**2 - y**2)
+        z = -Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
 
       cube.position.x = x
       cube.position.y = y
@@ -242,8 +236,8 @@ class Main {
 
     //Cylinders
     for (var i= 0 ;i<5;i+=1) {
-      min = Math.ceil(70/24);
-      max = Math.floor(70/20);
+      min = Math.ceil(_EARTH_RADIUS/24);
+      max = Math.floor(_EARTH_RADIUS/20);
       height = Math.floor(Math.random() * (max - min)) + min
       radius = Math.floor(Math.random() * (max - min)) + min
       radius = radius/2
@@ -254,15 +248,15 @@ class Main {
       cube = new THREE.Mesh( geometry, material )
       cube.raioCol = Math.sqrt((radius**2) + ((height/2)**2))
 
-      min = Math.ceil(84)
-      max = Math.floor(-84)
+      min = Math.ceil(_EARTH_RADIUS*1.2)
+      max = Math.floor(-(_EARTH_RADIUS*1.2))
       x = Math.floor(Math.random() * (max - min)) + min
       y = Math.floor(Math.random() * (max - min)) + min
       pos = Math.random()
       if (pos >= 0.5)
-        z = Math.sqrt(84**2 - x**2 - y**2)
+        z = Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
       else
-        z = -Math.sqrt(84**2 - x**2 - y**2)
+        z = -Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
 
       cube.position.x = x
       cube.position.y = y
@@ -274,8 +268,8 @@ class Main {
 
     //Cones
     for (var i= 0 ;i<5;i+=1) {
-      min = Math.ceil(70/24);
-      max = Math.floor(70/20);
+      min = Math.ceil(_EARTH_RADIUS/24);
+      max = Math.floor(_EARTH_RADIUS/20);
       height = Math.floor(Math.random() * (max - min)) + min
       radius = Math.floor(Math.random() * (max - min)) + min
       radius = radius/2
@@ -285,6 +279,9 @@ class Main {
 
       material = new THREE.MeshBasicMaterial( { color: 0xfc9803 } )
       cube = new THREE.Mesh( geometry, material )
+
+      min = Math.ceil(_EARTH_RADIUS*1.2)
+      max = Math.floor(-(_EARTH_RADIUS*1.2))
       cube.raioCol = Math.sqrt((radius**2) + ((height/2)**2))
       min = Math.ceil(84)
       max = Math.floor(-84)
@@ -292,9 +289,9 @@ class Main {
       y = Math.floor(Math.random() * (max - min)) + min
       pos = Math.random()
       if (pos >= 0.5)
-        z = Math.sqrt(84**2 - x**2 - y**2)
+        z = Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
       else
-        z = -Math.sqrt(84**2 - x**2 - y**2)
+        z = -Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
 
       cube.position.x = x
       cube.position.y = y
@@ -306,8 +303,8 @@ class Main {
 
     //Pyramids
     for (var i= 0 ;i<5;i+=1) {
-      min = Math.ceil(70/24);
-      max = Math.floor(70/20);
+      min = Math.ceil(_EARTH_RADIUS/24);
+      max = Math.floor(_EARTH_RADIUS/20);
       height = Math.floor(Math.random() * (max - min)) + min
       radius = Math.floor(Math.random() * (max - min)) + min
       radius = radius/2
@@ -318,15 +315,15 @@ class Main {
       cube = new THREE.Mesh( geometry, material )
       cube.raioCol = Math.sqrt((radius**2) + ((height/2)**2))
 
-      min = Math.ceil(84)
-      max = Math.floor(-84)
+      min = Math.ceil(_EARTH_RADIUS*1.2)
+      max = Math.floor(-(_EARTH_RADIUS*1.2))
       x = Math.floor(Math.random() * (max - min)) + min
       y = Math.floor(Math.random() * (max - min)) + min
       pos = Math.random()
       if (pos >= 0.5)
-        z = Math.sqrt(84**2 - x**2 - y**2)
+        z = Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
       else
-        z = -Math.sqrt(84**2 - x**2 - y**2)
+        z = -Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
 
       cube.position.x = x
       cube.position.y = y
@@ -338,16 +335,16 @@ class Main {
     }
 
     // Spaceship
-    min = Math.ceil(84)
-    max = Math.floor(-84)
+    const group = new THREE.Group();
+    min = Math.ceil(_EARTH_RADIUS*1.2)
+    max = Math.floor(-(_EARTH_RADIUS*1.2))
     x = Math.floor(Math.random() * (max - min)) + min
     y = Math.floor(Math.random() * (max - min)) + min
     pos = Math.random()
     if (pos >= 0.5)
-      z = Math.sqrt(84**2 - x**2 - y**2)
+      z = Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
     else
-      z = -Math.sqrt(84**2 - x**2 - y**2)
-
+      z = -Math.sqrt((_EARTH_RADIUS*1.2)**2 - x**2 - y**2)
 
     geometry = new THREE.CylinderGeometry(3, 3, 5, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
@@ -357,7 +354,7 @@ class Main {
     spaceshipBody.position.z = z
     this.getCompound().setPrimary(spaceshipBody)
 
-    geometry = new THREE.CylinderGeometry(1, 1, 2, 32)
+    geometry = new THREE.CylinderGeometry(1, 1, 0.5, 32)
     material = new THREE.MeshBasicMaterial({color: 0xffff00})
     spaceshipHead = new THREE.Mesh(geometry, material)
     spaceshipHead.position.y = 3.5
@@ -395,9 +392,48 @@ class Main {
     capsule.position.z = -2.8
     this.getCompound().setSecondary(capsule)
 
-    scene.add(spaceshipBody)
-    this.#sceneObjects.push(spaceshipBody)
+    this.#compound.raioCol = 5.52;
 
+    scene.add(this.getCompound().getGroup())
+    this.#sceneObjects.push(this.getCompound().getGroup())
+
+
+  }
+
+  /**
+   * Check for collisions. If there is a collision, remove the litter from the scene
+   */
+  #checkCollision = () => {
+    /* Check for collisions*/
+    for (var i = 0; i < this.#litter.length; i++) {
+
+      /* Call function to detect collision*/
+      var x1 = this.#litter[i].position.x;
+      var y1 = this.#litter[i].position.y;
+      var z1 = this.#litter[i].position.z;
+
+      var x2 = this.getCompound().getPrimary().position.x;
+      var y2 = this.getCompound().getPrimary().position.y;
+      var z2 = this.getCompound().getPrimary().position.z;
+
+      console.log(x2)
+
+      var x = Math.abs(x1 - x2);
+      var y = Math.abs(y1 - y2);
+      var z = Math.abs(z1 - z2);
+
+      var distance = 0;
+      if (x !== 0 || y !== 0 || z !== 0) {
+        distance = Math.sqrt((x * x) + (y * y) + (z * z));
+      }
+
+      /* We have to remove this litter from the scene*/
+      if (distance <= this.#litter[i].raioCol + this.#compound.raioCol) {
+        this.#scene.remove(this.#litter[i])
+
+        this.#litter.slice(i, 1)
+      }
+    }
   }
 
   /**
@@ -417,33 +453,11 @@ class Main {
     /* Gets the elapsed time from the previous frame. This makes fps smoother in lower end pc's */
     let delta = this.getClock().getDelta()
 
-    /*/!* Remove litter that has collided with the spaceship in the previous frame*!/
-    for (var j = 0; j < this.#collided.length; j++) {
-      this.#litter.remove(this.#collided[j]);
+    this.#checkCollision()
 
-      this.#collided[j].geometry.dispose();
-      this.#collided[j].material.dispose();
-    }
-
-    this.#collided.clear();
-
-    /!* Check for collisions*!/
-    for(var i = 0; i < this.#litter.length; i++){
-      /!* Call function to detect collision*!/
-      var distance = this.#litter[i].boundingSphere.distanceTo(this.#compound.boundingSphere);
-
-      if (distance <= this.#litter[i].boundingSphere.radius + this.#compound.boundingSphere.radius);
-        /!* We have to signalize and in the next update, this litter is going to disappear   *!/
-        this.#collided.push(this.#litter[i])
-
-        /!* We have to put the spaceship in a new position *!/
-
-
-
-    }*/
 
     /* Prompts key controller to check which keys were pressed and to delegate actions to the various components */
-    this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta, 70)
+    this.getController().processKeyPressed(this.getContext(), this.getSceneObjects(), this.getCompound(), delta, _EARTH_RADIUS*1.2)
 
   }
 
@@ -463,3 +477,5 @@ class Main {
   }
 
 }
+
+const _EARTH_RADIUS = 70
