@@ -6,11 +6,6 @@ class CompoundObject {
   #primary
 
   /**
-   * Holds secondary object of this composition.
-   */
-  #secondary
-
-  /**
    * Three.js group object that is going to be added to the scene.
    */
   #group
@@ -40,7 +35,6 @@ class CompoundObject {
   setSecondary(secondary) {
     this.getGroup().add(secondary)
     this.getPrimary().add(secondary)
-    this.#secondary = secondary
   }
 
   /**
@@ -49,13 +43,6 @@ class CompoundObject {
    * @return {Mesh}
    */
   getPrimary() { return this.#primary }
-
-  /**
-   * Gets secondary object.
-   *
-   * @return {Mesh}
-   */
-  getSecondary() { return this.#secondary }
 
   /**
    * Gets scene group.
@@ -73,18 +60,22 @@ class CompoundObject {
    *
    * @return number[] -> [x, y, z]
    */
-  static #applyRotation(radius, theta, phi) {
-    return [Math.sin(phi) * radius * Math.sin(theta), Math.cos(phi) * radius, Math.sin(phi) * radius * Math.cos(theta)]
+  #applySphericalRotation(radius, theta, phi) {
+    return [
+      Math.sin(phi) * radius * Math.sin(theta) - this.getPrimary().position.x,
+      Math.cos(phi) * radius - this.getPrimary().position.y,
+      Math.sin(phi) * radius * Math.cos(theta) - this.getPrimary().position.z
+    ]
   }
 
   /**
    * Moves articulated object in input direction by changing the position values of the group.
    *
-   * @param direction {Direction}
+   * @param directions {Array<Direction>}
    * @param delta {number}
    * @param radius {number} world radius
    */
-  move(direction, delta, radius) {
+  move(directions, delta, radius) {
 
     /* Calculates theta and phi so that we can rotate the spaceship */
     let {x, y, z} = this.getPrimary().position
@@ -92,22 +83,29 @@ class CompoundObject {
     let phi = Math.acos(Math.max(-1, Math.min(1, y / radius)))
 
     /* Calculates new x, z, y values based on the rotation of the spaceship */
-    switch (direction) {
-      case Direction.UP:
-        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta, phi - _MOVE_STEP * delta))
-        break
-      case Direction.DOWN:
-        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta, phi + _MOVE_STEP * delta))
-        break
-      case Direction.LEFT:
-        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta - _MOVE_STEP * delta, phi))
-        break
-      case Direction.RIGHT:
-        this.getPrimary().position.set(...CompoundObject.#applyRotation(radius, theta + _MOVE_STEP * delta, phi))
-        break
-    }
+    let totalMovementVector = new THREE.Vector3(0, 0, 0)
+    directions.forEach((direction) => {
+      switch (direction) {
+        case Direction.UP:
+          totalMovementVector.add(new THREE.Vector3(...this.#applySphericalRotation(radius, theta, phi - _MOVE_STEP * delta)))
+          break
+        case Direction.DOWN:
+          totalMovementVector.add(new THREE.Vector3(...this.#applySphericalRotation(radius, theta, phi + _MOVE_STEP * delta)))
+          break
+        case Direction.LEFT:
+          totalMovementVector.add(new THREE.Vector3(...this.#applySphericalRotation(radius, theta - _MOVE_STEP * delta, phi)))
+          break
+        case Direction.RIGHT:
+          totalMovementVector.add(new THREE.Vector3(...this.#applySphericalRotation(radius, theta + _MOVE_STEP * delta, phi)))
+          break
+      }
+    })
+
+    /* Applies rotation values */
+    this.getPrimary().position.add(totalMovementVector.normalize())
+
   }
 
 }
 
-const _MOVE_STEP = 0.3
+const _MOVE_STEP = 2
