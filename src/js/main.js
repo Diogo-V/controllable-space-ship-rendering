@@ -557,7 +557,8 @@ class Main {
     capsule.position.z = -2.8
     this.getCompound().setSecondary(capsule)
 
-    this.#compound.raioCol = 5.52;
+    this.#compound.raioCol = Math.sqrt(((spaceshipBody.geometry.parameters.height +
+            spaceshipHead.geometry.parameters.height)**2) + ((spaceshipHead.geometry.parameters.radiusTop/2)**2))
 
     scene.add(this.getCompound().getGroup())
     this.#sceneObjects.push(this.getCompound().getGroup())
