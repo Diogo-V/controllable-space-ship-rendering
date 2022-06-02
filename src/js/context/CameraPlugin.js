@@ -125,4 +125,3 @@ class CameraPlugin {
 /* Holds type of camera that can be instantiated (front, top and side view) */
 const __FRONTAL = 0, __FOLLOW = 1, __SIDE = 2
 const __SHIFT_FRONTAL = 7
-const __SHIFT_FOLLOW = 4

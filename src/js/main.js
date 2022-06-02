@@ -58,6 +58,8 @@ class Main {
    */
   #sceneObjects
 
+  #sceneScale
+
   /**
    * Main class constructor.
    */
@@ -71,7 +73,8 @@ class Main {
     this.#litter_h3 = Array()
     this.#litter_h4 = Array()
     this.#compound = new CompoundObject()
-    let [scene, followCamera]  = this.#initScene()
+    let [scene, followCamera, sceneScale]  = this.#initScene()
+    this.#sceneScale = sceneScale
     this.#scene = scene
     this.#context = new ContextManagementEngine(this.getScene(), followCamera)
     this.#controller = new KeyController()
@@ -104,10 +107,12 @@ class Main {
 
     let followCamera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 1000)
 
-    /* Adds rest of objects to the scene */
-    this.#buildScene(scene, followCamera)
+    let r = new THREE.Object3D()
 
-    return [scene, followCamera]
+    /* Adds rest of objects to the scene */
+    this.#buildScene(scene, followCamera, r)
+
+    return [scene, followCamera, r]
   }
 
   /**
@@ -190,7 +195,7 @@ class Main {
   /**
    * Adds objects to the scene.
    */
-  #buildScene = (scene, followCamera) => {
+  #buildScene = (scene, followCamera, r) => {
     'use strict'
 
     let radius
@@ -217,7 +222,7 @@ class Main {
     ball.position.x = 0
     ball.position.y = 0
     ball.position.z = 0
-    scene.add(ball)
+    r.add(ball)
     this.#sceneObjects.push(ball)
 
     // Orbital trash
@@ -279,7 +284,7 @@ class Main {
 
         /* We have to remove this litter from the scene*/
         if (distance <= this.#sceneObjects[i].raioCol + cube.raioCol) {
-          scene.remove(this.#sceneObjects[i])
+          r.remove(this.#sceneObjects[i])
 
           this.#sceneObjects.slice(i, 1)
           check = false
@@ -288,7 +293,7 @@ class Main {
 
       }
       if (check) {
-        scene.add(cube)
+        r.add(cube)
         this.#sceneObjects.push(cube)
         this.#addHemisphere(cube)
       }
@@ -322,7 +327,7 @@ class Main {
       cube.position.x = x
       cube.position.y = y
       cube.position.z = z
-      scene.add(cube)
+      r.add(cube)
       this.#sceneObjects.push(cube)
       this.#addHemisphere(cube)
 
@@ -344,7 +349,7 @@ class Main {
 
         /* We have to remove this litter from the scene*/
         if (distance <= this.#sceneObjects[i].raioCol + cube.raioCol) {
-          scene.remove(this.#sceneObjects[i])
+          r.remove(this.#sceneObjects[i])
 
           this.#sceneObjects.slice(i, 1)
           check = false
@@ -353,7 +358,7 @@ class Main {
 
       }
       if (check) {
-        scene.add(cube)
+        r.add(cube)
         this.#sceneObjects.push(cube)
         this.#addHemisphere(cube)
       }
@@ -388,7 +393,7 @@ class Main {
       cube.position.x = x
       cube.position.y = y
       cube.position.z = z
-      scene.add(cube)
+      r.add(cube)
       this.#sceneObjects.push(cube)
       this.#addHemisphere(cube)
 
@@ -410,7 +415,7 @@ class Main {
 
         /* We have to remove this litter from the scene*/
         if (distance <= this.#sceneObjects[i].raioCol + cube.raioCol) {
-          scene.remove(this.#sceneObjects[i])
+          r.remove(this.#sceneObjects[i])
 
           this.#sceneObjects.slice(i, 1)
           check = false
@@ -419,7 +424,7 @@ class Main {
 
       }
       if (check) {
-        scene.add(cube)
+        r.add(cube)
         this.#sceneObjects.push(cube)
         this.#addHemisphere(cube)
       }
@@ -453,7 +458,7 @@ class Main {
       cube.position.y = y
       cube.position.z = z
 
-      scene.add(cube)
+      r.add(cube)
       this.#sceneObjects.push(cube)
       this.#addHemisphere(cube)
 
@@ -475,7 +480,7 @@ class Main {
 
         /* We have to remove this litter from the scene*/
         if (distance <= this.#sceneObjects[i].raioCol + cube.raioCol) {
-          scene.remove(this.#sceneObjects[i])
+          r.remove(this.#sceneObjects[i])
 
           this.#sceneObjects.slice(i, 1)
           check = false
@@ -484,7 +489,7 @@ class Main {
 
       }
       if (check) {
-        scene.add(cube)
+        r.add(cube)
         this.#sceneObjects.push(cube)
         this.#addHemisphere(cube)
       }
@@ -560,9 +565,9 @@ class Main {
     this.#compound.raioCol = Math.sqrt(((spaceshipBody.geometry.parameters.height +
             spaceshipHead.geometry.parameters.height)**2) + ((spaceshipHead.geometry.parameters.radiusTop/2)**2))
 
-    scene.add(this.getCompound().getGroup())
+    r.add(this.getCompound().getGroup())
+    scene.add(r)
     this.#sceneObjects.push(this.getCompound().getGroup())
-
 
   }
 
@@ -570,9 +575,9 @@ class Main {
    * Check for collisions. If there is a collision, remove the litter from the scene
    */
   #checkCollision = (list) => {
-    var x2 = this.getCompound().getPrimary().position.x;
-    var y2 = this.getCompound().getPrimary().position.y;
-    var z2 = this.getCompound().getPrimary().position.z;
+    let x2 = this.getCompound().getPrimary().position.x;
+    let y2 = this.getCompound().getPrimary().position.y;
+    let z2 = this.getCompound().getPrimary().position.z;
 
     /* Check for collisions in the first hemisphere */
     for (let i = 0; i < list.length; i++) {
@@ -590,7 +595,7 @@ class Main {
 
       /* We have to remove this litter from the scene*/
       if (distance <= list[i].raioCol + this.#compound.raioCol) {
-        this.#scene.remove(list[i])
+        this.#sceneScale.remove(list[i])
 
         list.slice(i, 1)
       }
